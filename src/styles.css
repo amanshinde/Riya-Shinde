@@ -152,8 +152,8 @@ main {
 
 .hero-text {
   flex: 1;
-  max-width: 640px;
-  padding-bottom: 68px
+  max-width: 720px;
+  padding-bottom: 50px
 }
 
 .hero-photo {
@@ -561,7 +561,8 @@ ol.pubs>li::before {
   }
 
   .hero-photo img {
-    width: 260px
+    width: 200px;
+    max-width: 65vw
   }
 
   .resume-toolbar {
