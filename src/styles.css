@@ -145,17 +145,22 @@ main {
 .hero-inner {
   display: flex;
   align-items: flex-end;
-  gap: 60px;
-  max-width: 1100px
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%
 }
 
 .hero-text {
   flex: 1;
+  max-width: 640px;
   padding-bottom: 68px
 }
 
 .hero-photo {
-  flex-shrink: 0
+  flex-shrink: 0;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end
 }
 
 .hero-photo img {
@@ -548,6 +553,11 @@ ol.pubs>li::before {
     flex-direction: column-reverse;
     gap: 30px;
     text-align: center
+  }
+
+  .hero-photo {
+    margin-left: 0;
+    justify-content: center
   }
 
   .hero-photo img {
