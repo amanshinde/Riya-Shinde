@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { profile, nav, themes, research, experience, expertise, publications, presentations, education } from './content.js'
 import heroImg from '../riyashinde.png'
 import resumePdf from '../Riya_Shinde.pdf'
@@ -56,47 +56,37 @@ function Header() {
 }
 
 function ResumeViewer() {
-  const [activePage, setActivePage] = useState('all')
-  const pages = [
-    { num: 1, src: resumePage1 },
-    { num: 2, src: resumePage2 },
-  ]
+  const containerRef = useRef(null)
 
-  const displayedPages = activePage === 'all'
-    ? pages
-    : pages.filter((p) => p.num === activePage)
+  const scrollToPage = (pageNum) => {
+    if (!containerRef.current) return
+    const target = containerRef.current.querySelector(`#resume-sheet-${pageNum}`)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
     <div className="resume-viewer">
       <div className="resume-toolbar">
-        <div className="resume-tab-group" role="tablist" aria-label="Resume page selection">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activePage === 'all'}
-            className={`resume-tab ${activePage === 'all' ? 'active' : ''}`}
-            onClick={() => setActivePage('all')}
-          >
-            All Pages (2)
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activePage === 1}
-            className={`resume-tab ${activePage === 1 ? 'active' : ''}`}
-            onClick={() => setActivePage(1)}
-          >
-            Page 1
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activePage === 2}
-            className={`resume-tab ${activePage === 2 ? 'active' : ''}`}
-            onClick={() => setActivePage(2)}
-          >
-            Page 2
-          </button>
+        <div className="resume-toolbar-nav">
+          <span className="resume-window-label">Scroll to view</span>
+          <div className="resume-jump-btns">
+            <button
+              type="button"
+              className="resume-tab"
+              onClick={() => scrollToPage(1)}
+            >
+              Page 1
+            </button>
+            <button
+              type="button"
+              className="resume-tab"
+              onClick={() => scrollToPage(2)}
+            >
+              Page 2
+            </button>
+          </div>
         </div>
 
         <div className="resume-actions-inline">
@@ -114,23 +104,30 @@ function ResumeViewer() {
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
             </svg>
-            Open Original PDF
+            Open in New Tab
           </a>
         </div>
       </div>
 
-      <div className="resume-pages-container">
-        {displayedPages.map((page) => (
-          <article key={page.num} className="resume-page-sheet">
-            <div className="resume-page-tag">Page {page.num} of 2</div>
-            <img
-              src={page.src}
-              alt={`Riya Shinde Resume - Page ${page.num}`}
-              className="resume-page-img"
-              loading="lazy"
-            />
-          </article>
-        ))}
+      <div className="resume-scroll-window" ref={containerRef}>
+        <article id="resume-sheet-1" className="resume-page-sheet">
+          <div className="resume-page-tag">Page 1 of 2</div>
+          <img
+            src={resumePage1}
+            alt="Riya Shinde Resume - Page 1"
+            className="resume-page-img"
+            loading="lazy"
+          />
+        </article>
+        <article id="resume-sheet-2" className="resume-page-sheet">
+          <div className="resume-page-tag">Page 2 of 2</div>
+          <img
+            src={resumePage2}
+            alt="Riya Shinde Resume - Page 2"
+            className="resume-page-img"
+            loading="lazy"
+          />
+        </article>
       </div>
     </div>
   )
