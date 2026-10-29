@@ -141,18 +141,20 @@ export default function App() {
       <main id="main">
         <div className="hero" id="top">
           <div className="hero-inner">
-            <div className="hero-text">
+            <div className="hero-heading">
               <p className="eyebrow">{profile.descriptor}</p>
               <h1>{profile.name}</h1>
+            </div>
+            <div className="hero-photo">
+              <img src={heroImg} alt="Riya Shinde" />
+            </div>
+            <div className="hero-body">
               <p className="lead">{profile.intro}</p>
               <div className="actions">
                 <a className="btn" href="#research">Explore Research</a>
                 <a className="btn" href="#publications">View Publications</a>
                 <a className="btn" href="#resume">View Resume</a>
               </div>
-            </div>
-            <div className="hero-photo">
-              <img src={heroImg} alt="Riya Shinde" />
             </div>
           </div>
         </div>
